@@ -1,0 +1,45 @@
+bundle:
+  name: tamarack-sales-platform
+
+include:
+  - resources/*.yml
+
+sync:
+  exclude:
+    - .claude
+    - tests
+
+variables:
+  catalog:
+    description: Unity Catalog catalog for this target (dev_tamarack, stg_tamarack or prod_tamarack).
+  from_date:
+    description: First sale_date the daily load rebuilds (YYYY-MM-DD).
+    default: "2026-10-01"
+
+targets:
+  # The only target deployed from a developer machine.
+  dev:
+    default: true
+    mode: development
+    workspace:
+      profile: tamarack-dev
+    variables:
+      catalog: dev_tamarack
+
+  # Staging and prod are deployed by CI only. CI supplies the workspace host and
+  # credentials (DATABRICKS_HOST / service principal) through the environment.
+  # The bundle root lives in the deploying principal's home folder, not /Workspace/Shared,
+  # so other workspace users cannot modify deployed files (required by `validate --strict`).
+  staging:
+    mode: production
+    workspace:
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
+    variables:
+      catalog: stg_tamarack
+
+  prod:
+    mode: production
+    workspace:
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
+    variables:
+      catalog: prod_tamarack
