@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Read", "Edit", "Write", "Glob", "Grep", "Skill", "TodoWrite",
+      "Bash(databricks:*)", "Bash(git:*)", "Bash(gh:*)",
+      "Bash(python:*)", "Bash(python3:*)", "Bash(py:*)", "Bash(pip:*)", "Bash(pytest:*)", "Bash(.venv/Scripts/python:*)", "Bash(uv:*)",
+      "Bash(ls:*)", "Bash(cat:*)", "Bash(mkdir:*)", "Bash(find:*)", "Bash(grep:*)", "Bash(head:*)", "Bash(tail:*)", "Bash(wc:*)",
+      "Bash(cd:*)", "Bash(echo:*)", "Bash(which:*)", "Bash(pwd)", "Bash(tree:*)", "Bash(sort:*)", "Bash(diff:*)"
+    ],
+    "deny": [
+      "Bash(databricks bundle deploy -t staging:*)", "Bash(databricks bundle deploy -t prod:*)",
+      "Bash(databricks bundle deploy --target staging:*)", "Bash(databricks bundle deploy --target prod:*)",
+      "Bash(databricks bundle deploy --target=staging:*)", "Bash(databricks bundle deploy --target=prod:*)",
+      "Bash(databricks bundle run -t staging:*)", "Bash(databricks bundle run -t prod:*)",
+      "Bash(databricks bundle run --target staging:*)", "Bash(databricks bundle run --target prod:*)",
+      "Bash(databricks bundle destroy:*)", "Bash(databricks auth token:*)", "Bash(databricks -p:*)",
+      "Bash(git push origin main:*)", "Bash(git push -u origin main:*)", "Bash(git push --force:*)", "Bash(git push -f:*)",
+      "Bash(git reset --hard:*)", "Bash(gh pr merge:*)", "Bash(gh repo delete:*)", "Bash(gh repo edit:*)",
+      "Bash(gh api:*)", "Bash(gh secret:*)", "Bash(gh variable set:*)"
+    ]
+  }
+}

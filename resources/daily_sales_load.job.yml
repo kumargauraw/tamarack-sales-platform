@@ -1,0 +1,20 @@
+resources:
+  jobs:
+    daily_sales_load:
+      name: daily_sales_load
+      description: Rebuilds ${var.catalog}.gold.daily_sales from silver (replaces Oracle LOAD_DAILY_SALES).
+      max_concurrent_runs: 1
+      # Development mode pauses this schedule automatically in the dev target.
+      schedule:
+        quartz_cron_expression: "0 0 6 * * ?"
+        timezone_id: UTC
+      parameters:
+        - name: catalog
+          default: ${var.catalog}
+        - name: from_date
+          default: ${var.from_date}
+      tasks:
+        - task_key: load_daily_sales
+          notebook_task:
+            notebook_path: ../notebooks/daily_sales_load.py
+          # No compute block: the task runs on serverless jobs compute.

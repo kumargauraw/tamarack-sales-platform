@@ -1,0 +1,12 @@
+[project]
+name = "tamarack-sales"
+version = "0.1.0"
+requires-python = ">=3.10"
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pyspark>=3.5"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+markers = ["spark: needs a local Spark session (pyspark + Java)"]
